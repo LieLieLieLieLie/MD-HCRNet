@@ -1,0 +1,39 @@
+# Dataset raw files (too large for repo)
+data/freihand/
+data/HO3D/
+
+# MANO model weights (license-restricted; download from https://mano.is.tue.mpg.de/)
+data/mano/*.pkl
+
+# Experiment outputs and checkpoints
+outputs/
+
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Model weights (upload separately if needed)
+*.pth
+*.pt
+*.ckpt
+
+# IDE / OS
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# Jupyter / IPython
+*.ipynb
+.ipynb_checkpoints/
+
+# Logs
+*.log
+wandb/
+runs/

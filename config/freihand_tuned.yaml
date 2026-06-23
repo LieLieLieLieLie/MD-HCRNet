@@ -1,0 +1,73 @@
+model:
+  embed_dim: 768
+  num_heads: 12
+  num_layers: 6
+  patch_size: 16
+  img_height: 256
+  img_width: 192
+  use_mamba: false
+  freeze_backbone: false
+  joint_query_layers: 2
+  use_direct_joint_decoder: true
+  direct_joint_layers: 3
+  direct_joint_zero_init: true
+  depth_estimator: "depth_anything_v2"
+
+mano:
+  model_path: "data"
+  use_pca: false
+  num_pca_comps: 45
+  is_rhand: true
+  flat_hand_mean: false
+
+data:
+  root: "data"
+  dataset: "freihand"
+  batch_size: 8
+  num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  train_subset: 29000
+  val_subset: 0
+  subset_seed: 2026
+  img_height: 256
+  img_width: 192
+  use_aug: false
+  random_flip: true
+  color_jitter: true
+  random_crop: true
+  crop_scale: [0.8, 1.2]
+  rotation_deg: 30
+  depth_cache_dir: "data/freihand/depth_cache"
+
+train:
+  epochs: 15
+  lr: 5e-5
+  refine_lr: 1e-4
+  backbone_lr: 5e-6
+  weight_decay: 5e-5
+  warmup_epochs: 1
+  lr_decay_epochs: [10, 14]
+  lr_decay_factor: 0.1
+  save_freq: 5
+  log_freq: 25
+  output_dir: "outputs/freihand_uhr_tuned"
+  amp: true
+  amp_dtype: "bfloat16"
+  empty_cache_each_epoch: true
+
+loss:
+  lambda_joints3d: 2.0
+  lambda_joints2d: 0.1
+  lambda_vertices: 0.05
+  lambda_beta: 0.0
+  lambda_theta: 0.0
+  lambda_joint_residual: 0.005
+  lambda_aux_refine: 0.1
+  lambda_uhr_joints3d: 0.1
+  lambda_depth_joints3d: 0.2
+  lambda_depth_joints2d: 0.05
+
+eval:
+  checkpoint: ""
+  dataset: "freihand"

@@ -1,0 +1,19 @@
+torch>=2.0.0
+torchvision>=0.15.0
+timm>=0.9.0
+einops>=0.6.0
+numpy>=1.24.0,<2.0
+opencv-python>=4.7.0,<4.12
+Pillow>=9.5.0
+tqdm>=4.65.0
+tensorboard>=2.13.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+PyYAML>=6.0
+smplx>=0.1.28
+chumpy>=0.70
+trimesh>=3.22.0
+huggingface_hub>=0.19.0,<1.0
+transformers>=4.40.0,<5.0
+# Optional — requires CUDA 11.8+ and matching PyTorch:
+# mamba-ssm>=1.2.0

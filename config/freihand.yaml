@@ -1,0 +1,77 @@
+model:
+  embed_dim: 768
+  num_heads: 12
+  num_layers: 6
+  patch_size: 16
+  img_height: 256
+  img_width: 192
+  use_mamba: false
+  freeze_backbone: false
+  joint_query_layers: 2
+  use_direct_joint_decoder: true
+  direct_joint_layers: 3
+  direct_joint_zero_init: true
+  depth_estimator: "depth_anything_v2"
+
+mano:
+  model_path: "data"
+  use_pca: false
+  num_pca_comps: 45
+  is_rhand: true
+  flat_hand_mean: false
+
+data:
+  root: "data"
+  dataset: "freihand"
+
+  # RTX 4080-safe controlled subset profile.
+  # All methods use the same deterministic subset for fair comparison.
+  batch_size: 8
+  num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  train_subset: 29000
+  val_subset: 0
+  subset_seed: 2026
+
+  img_height: 256
+  img_width: 192
+  use_aug: false
+  random_flip: true
+  color_jitter: true
+  random_crop: true
+  crop_scale: [0.8, 1.2]
+  rotation_deg: 30
+  depth_cache_dir: "data/freihand/depth_cache"
+
+train:
+  epochs: 20
+  lr: 2e-5
+  refine_lr: 4e-5
+  backbone_lr: 2e-6
+  weight_decay: 1e-4
+  warmup_epochs: 3
+  lr_decay_epochs: [14, 18]
+  lr_decay_factor: 0.1
+  save_freq: 5
+  log_freq: 25
+  output_dir: "outputs/freihand_uhr_true"
+  amp: true
+  amp_dtype: "bfloat16"
+  empty_cache_each_epoch: true
+
+loss:
+  lambda_joints3d: 1.0
+  lambda_joints2d: 0.5
+  lambda_vertices: 0.2
+  lambda_beta: 0.01
+  lambda_theta: 0.01
+  lambda_joint_residual: 0.01
+  lambda_aux_refine: 0.3
+  lambda_uhr_joints3d: 0.5
+  lambda_depth_joints3d: 0.5
+  lambda_depth_joints2d: 0.2
+
+eval:
+  checkpoint: ""
+  dataset: "freihand"
